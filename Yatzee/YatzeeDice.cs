@@ -96,7 +96,44 @@ namespace Yatzee
             return diceValueOccurences;
         }
 
-       public YatzeeScoreCard GetPossibleScores()
+
+        private bool hasSmallStraight()
+        {
+            int[] sortedDiceValues = GetSortedDiceValues();
+
+            bool hasSmallStraight = false;
+            for (int i = 0; i < sortedDiceValues.Length - 3; i++)
+            {
+                if (sortedDiceValues[i] == (sortedDiceValues[i + 1] - 1)
+                    && sortedDiceValues[i + 1] == (sortedDiceValues[i + 2] - 2)
+                    && sortedDiceValues[i + 2] == (sortedDiceValues[i + 3] - 3))
+                {
+                    hasSmallStraight = true;
+                    break;
+                }
+            }
+            return hasSmallStraight;
+        }
+
+        private int[] GetSortedDiceValues()
+        {
+            int[] sortedDiceValues = { Die1Value, Die2Value, Die3Value, Die4Value, Die5Value };
+            Array.Sort(sortedDiceValues);
+            return sortedDiceValues;
+        }
+
+        private bool hasLargeStraight()
+        {
+            int[] sortedDiceValues = GetSortedDiceValues();
+
+            return sortedDiceValues[0] == (sortedDiceValues[1] - 1)
+                    && sortedDiceValues[0] == (sortedDiceValues[2] - 2)
+                    && sortedDiceValues[0] == (sortedDiceValues[3] - 3)
+                    && sortedDiceValues[0] == (sortedDiceValues[4] - 4);
+        }
+
+
+        public YatzeeScoreCard GetPossibleScores()
         {
             YatzeeScoreCard scores = new YatzeeScoreCard();
 
@@ -109,13 +146,19 @@ namespace Yatzee
 
             scores.ThreeOfAKind = GetDieValueOccurences().Contains(3) ? SumOfAllDice : 0;
             scores.FourOfAKind = GetDieValueOccurences().Contains(4) ? SumOfAllDice : 0;
-            scores.FullHouse = GetDieValueOccurences().Contains(3) && GetDieValueOccurences().Contains(2) ? 25 : 0;
+            scores.FullHouse = GetDieValueOccurences().Contains(3) && GetDieValueOccurences().Contains(2) ? YatzeeScoreCard.FULL_HOUSE_SCORE : 0;
             scores.SmallStraight = GetDieValueOccurences().Contains(4) || GetDieValueOccurences().Contains(5) ? 30 : 0;
             scores.LargeStraight = GetDieValueOccurences().Contains(5) ? 40 : 0;
             scores.Chance = SumOfAllDice;
             scores.Yatzee = GetDieValueOccurences().Contains(5) ? 50 : 0;
 
+            scores.SmallStraight = hasSmallStraight() ? YatzeeScoreCard.SMALL_STRAIGHT_SCORE : 0;
+            scores.LargeStraight = hasLargeStraight() ? YatzeeScoreCard.LARGE_STRAIGHT_SCORE : 0;
 
+            scores.Chance = SumOfAllDice;
+
+            scores.Yatzee = GetDieValueOccurences().Contains(5) ? YatzeeScoreCard.YATZEE_SCORE : 0;
+            
             return scores;
         }
     }

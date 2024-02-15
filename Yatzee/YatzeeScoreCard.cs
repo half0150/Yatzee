@@ -9,15 +9,20 @@ namespace Yatzee
     public class YatzeeScoreCard
     {
 
-        private static int UPPER_BONUS = 35;
-        private static int UPPER_SCORE_MIN_TO_GET_BONUS = 63;
+        public static int UPPER_BONUS = 35;
+        public static int UPPER_SCORE_MIN_TO_GET_BONUS = 63;
 
-        public int? OnesScore { get; private set; }
-        public int? TwosScore { get; private set; }
-        public int? ThreesScore { get; private set; }
-        public int? FoursScore { get; private set; }
-        public int? FivesScore { get; private set; }
-        public int? SixesScore { get; private set; }
+        public static int SMALL_STRAIGHT_SCORE = 30;
+        public static int LARGE_STRAIGHT_SCORE = 40;
+        public static int FULL_HOUSE_SCORE = 25;
+        public static int YATZEE_SCORE = 50;
+
+        public int? OnesScore { get; set; }
+        public int? TwosScore { get; set; }
+        public int? ThreesScore { get; set; }
+        public int? FoursScore { get; set; }
+        public int? FivesScore { get; set; }
+        public int? SixesScore { get; set; }
         
         public int UpperSum => 
             (OnesScore ?? 0) +
@@ -30,13 +35,13 @@ namespace Yatzee
         public int UpperBous => 
             UpperSum >= UPPER_SCORE_MIN_TO_GET_BONUS ? UPPER_BONUS : 0;
 
-        public int? ThreeOfAKind { get; private set; }
-        public int? FourOfAKind { get; private set; }
-        public int? FullHouse { get; private set; }
-        public int? SmallStraight { get; private set; }
-        public int? LargeStraight { get; private set; }
-        public int? Chance { get; private set; }
-        public int? Yatzee { get; private set; }
+        public int? ThreeOfAKind { get; set; }
+        public int? FourOfAKind { get; set; }
+        public int? FullHouse { get; set; }
+        public int? SmallStraight { get; set; }
+        public int? LargeStraight { get; set; }
+        public int? Chance { get; set; }
+        public int? Yatzee { get; set; }
         public int Total => UpperSum + UPPER_BONUS +
             (ThreeOfAKind ?? 0) +
             (FourOfAKind ?? 0) +
