@@ -70,7 +70,7 @@ namespace Yatzee
 
         private void label3_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void holdDie1Checkbox_CheckedChanged(object sender, EventArgs e)
@@ -121,6 +121,7 @@ namespace Yatzee
 
             onesScoreLabel.Text = currentPlayer.OnesScore == null ? "" : currentPlayer.OnesScore.ToString();
             twosScoreLabel.Text = currentPlayer.TwosScore == null ? "" : currentPlayer.TwosScore.ToString();
+
 
             newDice();
             UpdateLabels();

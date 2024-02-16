@@ -44,11 +44,11 @@ namespace Yatzee
 
         private List<int> diceValues;
         private List<bool> holdValues;
-        private Random random;
+        private IRandom random;
 
-        public YatzeeDice()
+        public YatzeeDice(IRandom random)
         {
-            random = new Random();
+            this.random = random;
             NumberOfTimesRolled = 0;
             diceValues = new List<int> { 0, 0, 0, 0, 0 };
             holdValues = new List<bool> { false, false, false, false, false };
